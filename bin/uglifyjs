@@ -17,6 +17,7 @@ var options = {
         dead_code: true,
         verbose: false,
         show_copyright: true,
+        preserve_comments: false,
         out_same_file: false,
         max_line_length: 32 * 1024,
         unsafe: false,
@@ -75,6 +76,9 @@ out: while (args.length > 0) {
                 break;
             case "--no-dead-code":
                 options.dead_code = false;
+                break;
+            case "--preserve_comments":
+                options.preserve_comments = true;
                 break;
             case "--no-copyright":
             case "-nc":
@@ -278,6 +282,11 @@ function squeeze_it(code) {
         }
         try {
                 var ast = time_it("parse", function(){ return jsp.parse(code); });
+
+                if (!options.preserve_comments) {
+                        ast = pro.ast_comment_remover(ast);
+                }
+
                 if (options.lift_vars) {
                         ast = time_it("lift", function(){ return pro.ast_lift_variables(ast); });
                 }
