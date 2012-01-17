@@ -230,6 +230,9 @@ Supported options:
   of JavaScript as output.  Useful for debugging or learning more about the
   internals.
 
+- =--preserve-comments --- pass this if you want to keep comments in source.
+  Otherwise, all comments will be stripped out.
+
 - =-v= or =--verbose= --- output some notes on STDERR (for now just how long
   each operation takes).
 
